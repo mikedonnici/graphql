@@ -7,6 +7,6 @@ Playing with go-graphql...
 - [x] Fake datastore
 - [x] Basic query
 - [x] Web handler (used graphql-handler) 
-- [] Get a mutation to work 
+- [ ] Get a mutation to work 
 
 

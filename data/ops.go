@@ -1,8 +1,8 @@
 package data
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 )
 
 func GetPosts() []Post {
@@ -20,9 +20,7 @@ func GetPost(postID int) (Post, error) {
 
 func AddPost(p Post) Post {
 	p.ID = len(DataPosts) + 1
-	fmt.Println(p)
 	DataPosts = append(DataPosts, p)
-
 	return p
 }
 

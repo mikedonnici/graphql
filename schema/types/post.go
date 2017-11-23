@@ -38,18 +38,19 @@ var Post = graphql.NewObject(graphql.ObjectConfig{
 	},
 })
 
-var PostInput = graphql.NewObject(graphql.ObjectConfig{
+var PostInput = graphql.NewInputObject(graphql.InputObjectConfig{
 	Name:        "PostInput",
 	Description: "Add new post type",
-	Fields: graphql.Fields{
-		"title": &graphql.Field{
-			Type: &graphql.NonNull{OfType: graphql.Int},
-		},
-		"content": &graphql.Field{
+	Fields: graphql.InputObjectConfigFieldMap{
+		"title": &graphql.InputObjectFieldConfig{
 			Type: &graphql.NonNull{OfType: graphql.String},
 		},
-		"authorId": &graphql.Field{
+		"content": &graphql.InputObjectFieldConfig{
+			Type: &graphql.NonNull{OfType: graphql.String},
+		},
+		"authorId": &graphql.InputObjectFieldConfig{
 			Type: &graphql.NonNull{OfType: graphql.Int},
 		},
 	},
 })
+

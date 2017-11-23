@@ -16,10 +16,10 @@ func main() {
 			Name:        "RootQuery",
 			Description: "...",
 			Fields: graphql.Fields{
-				"posts":   queries.Posts,
-				"post":    queries.Post,
-				"authors": queries.Authors,
-				"author":  queries.Author,
+				"posts":       queries.Posts,
+				"post":        queries.Post,
+				"authors":     queries.Authors,
+				"author":      queries.Author,
 				"authorPosts": queries.AuthorPosts,
 			},
 		})

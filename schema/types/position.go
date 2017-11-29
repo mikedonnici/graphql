@@ -6,7 +6,7 @@ import (
 )
 
 var Post = graphql.NewObject(graphql.ObjectConfig{
-	Name:        "Post",
+	Name:        "Position",
 	Description: "Blog post...",
 	Fields: graphql.Fields{
 		"id": &graphql.Field{
@@ -21,9 +21,9 @@ var Post = graphql.NewObject(graphql.ObjectConfig{
 		"author": &graphql.Field{
 			Type: Author,
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-				// get the author id from the source of this data, which is data.Post.AuthorID
+				// get the author id from the source of this data, which is data.Position.AuthorID
 				// p.Source returns an interface{} so have to assert the value first :)
-				authorID := p.Source.(data.Post).AuthorID
+				authorID := p.Source.(data.Position).AuthorID
 				return data.GetAuthor(authorID), nil
 			},
 		},
@@ -31,7 +31,7 @@ var Post = graphql.NewObject(graphql.ObjectConfig{
 			Type:        graphql.NewList(Comment),
 			Description: "Comments belonging to a post",
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-				postID := p.Source.(data.Post).ID
+				postID := p.Source.(data.Position).ID
 				return data.GetComments(postID), nil
 			},
 		},

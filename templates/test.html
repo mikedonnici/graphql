@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple Polylines</title>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+
+    // This example creates a 2-pixel-wide red polyline showing the path of
+    // the first trans-Pacific flight between Oakland, CA, and Brisbane,
+    // Australia which was made by Charles Kingsford Smith.
+
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 9,
+            center: {lat: -35.01, lng: 150.5}
+        });
+        map.addListener('click', function(e) {
+            placeMarkerAndPanTo(e.latLng, map);
+            console.log(e.lat);
+        });
+
+        var flightPlanCoordinates = [
+            {lat: -34.4567, lng: 151.3456},
+            {lat: -34.5567, lng: 151.3456},
+            {lat: -34.6567, lng: 151.3456},
+            {lat: -34.7567, lng: 151.3456},
+            {lat: -34.8567, lng: 151.3456},
+        ];
+        var flightPath = new google.maps.Polyline({
+            path: flightPlanCoordinates,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        });
+
+        flightPath.setMap(map);
+
+
+        var myLatLng = {lat: -34.7567, lng: 151.3456};
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            label: 'IgglePiggle',
+            map: map,
+            title: 'Hello World!'
+        });
+        marker.setMap(map);
+
+    }
+
+    function placeMarkerAndPanTo(latLng, map) {
+        var marker = new google.maps.Marker({
+            position: latLng,
+            map: map
+        });
+        map.panTo(latLng);
+    }
+
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABuFIG7RckWPZ9bzXoTZzygx9GLOyTR5M&callback=initMap">
+</script>
+</body>
+</html>

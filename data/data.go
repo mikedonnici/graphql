@@ -1,42 +1,70 @@
 package data
 
-type Post struct {
-	ID       int    `json:"id"`
-	AuthorID int    `json:"authorId"`
-	Title    string `json:"title"`
-	Content  string `json:"content"`
-}
-
-type Author struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
-}
-
-type Comment struct {
-	ID      int    `json:"id"`
-	PostID  int    `json:"postId"`
-	Name    string `json:"name"`
-	Content string `json:"content"`
-}
+import (
+	"time"
+)
 
 // dummy data
-var DataPosts = []Post{
-	{1, 1, "this is the way we roll", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem"},
-	{2, 1, "A different perspective", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem"},
-	{3, 2, "Go to town", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem"},
+var DataVessels = []Vessel{
+	{
+		ID:          "a7f4e2fd-6747-4180-a0bb-9db14a517c7c",
+		Name:        "Icarus",
+		CallSign:    "JB-101",
+		Type:        "Traditional 30",
+		Description: "Sloop, white hull, white topsides",
+	},
+	{
+		ID:          "af44fdfd-4184-4b47-8296-b90eef262309",
+		Name:        "Daedalus",
+		CallSign:    "JB-222",
+		Type:        "Mason 55",
+		Description: "Ketch, white hull, white topsides",
+	},
+	{
+		ID:          "23989670-8da5-4f3a-bdca-da7143cf764d",
+		Name:        "IgglePiggle",
+		CallSign:    "JB-145",
+		Type:        "Redjacket",
+		Description: "Sloop, red hull, white topsides",
+	},
 }
 
-var DataAuthors = []Author{
-	{1, "Mike Donnici", "michael@mesa.net.au"},
-	{2, "Matt Donnici", "oi@mattdonnici.com"},
+var t, _ = time.Parse(time.RFC3339, "2017-11-02T06:04:05+10:00")
+
+var DataVoyages = []Voyage{
+	{
+		ID:          "21af638c-de93-4f05-8000-a0b9f18a024b",
+		VesselID:    "a7f4e2fd-6747-4180-a0bb-9db14a517c7c",
+		Name:        "JB to Port Mac",
+		Description: "JB -> Cronulla -> Port Stephens -> Port Macquarie",
+		Waypoints: []Waypoint{
+			{
+				ID:       "c64949f7-6faa-48b8-ae73-796876eb6964",
+				Name:     "Point Perp.",
+				Sequence: 1,
+				ETA:      t,
+				ATA:      t,
+				Lat:      -35.099220,
+				Lon:      150.803005,
+			},
+			{
+				ID:       "a08146f8-826b-46db-b62a-5c849115d361",
+				Name:     "Lamond Head",
+				Sequence: 2,
+				ETA:      t,
+				Lat:      -35.050142,
+				Lon:      150.850169,
+			},
+			{
+				ID:       "921a0d91-4e72-4ad0-9ea8-3cb31815462b",
+				Name:     "Beecroft Head",
+				Sequence: 3,
+				ETA:      t,
+				Lat:      -35.013395,
+				Lon:      150.853153,
+			},
+		},
+	},
 }
 
-var DataComments = []Comment{
-	{1, 1, "Anonymous", "This is a great article"},
-	{2, 2, "Barry Anonymous", "Loved it!"},
-	{3, 2, "Mary Anonymous", "A bit oo much to cope with!"},
-	{4, 3, "John Smith", "Too many typos"},
-	{5, 2, "Delta Fan Tasmo", "This could have been better"},
-	{6, 1, "Rainy Dayz", "This is exactly what I needed"},
-}
+var DataPositions = []Position{}

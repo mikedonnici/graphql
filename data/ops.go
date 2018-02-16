@@ -1,58 +1,63 @@
 package data
 
 import (
-	"errors"
-	"fmt"
+	"github.com/satori/uuid"
 )
 
-func GetPosts() []Post {
-	return DataPosts
+func AddVessel(v Vessel) Vessel {
+	v.ID = uuid.NewV4().String()
+	DataVessels = append(DataVessels, v)
+	return v
 }
 
-func GetPost(postID int) (Post, error) {
-	for _, v := range DataPosts {
-		if v.ID == postID {
-			return v, nil
-		}
-	}
-	return Post{}, errors.New("No record found")
+func AddVoyage(v Voyage) Voyage {
+	v.ID = uuid.NewV4().String()
+	DataVoyages = append(DataVoyages, v)
+	return v
 }
 
-func AddPost(p Post) Post {
-	p.ID = len(DataPosts) + 1
-	DataPosts = append(DataPosts, p)
+func AddPosition(p Position) Position {
+	p.ID = uuid.NewV4().String()
+	DataPositions = append(DataPositions, p)
 	return p
 }
 
-func GetComments(postID int) []Comment {
-	var xc []Comment
-	for _, v := range DataComments {
-		if v.PostID == postID {
-			xc = append(xc, v)
-		}
-	}
-	return xc
+func GetVessels() []Vessel {
+	return DataVessels
 }
 
-func GetAuthors() []Author {
-	return DataAuthors
-}
-
-func GetAuthor(authorID int) Author {
-	for _, v := range DataAuthors {
-		if v.ID == authorID {
+func GetVessel(id string) Vessel {
+	for _, v := range DataVessels {
+		if v.ID == id {
 			return v
 		}
 	}
-	return Author{}
+	return Vessel{}
 }
 
-func GetAuthorPosts(authorID int) []Post {
-	var xp []Post
-	for _, v := range DataPosts {
-		if v.AuthorID == authorID {
-			xp = append(xp, v)
+func GetVesselPositions(vesselID string) VesselPositions {
+	vp := VesselPositions{}
+	// Populate the Vessel fields
+	v := GetVessel(vesselID)
+	vp.ID = v.ID
+	vp.Name = v.Name
+	vp.CallSign = v.CallSign
+	vp.Description = v.Description
+	vp.Type = v.Type
+	// Get all positions for the vessel
+	for _, p := range DataPositions {
+		if p.VesselID == vesselID {
+			vp.Positions = append(vp.Positions, p)
 		}
 	}
-	return xp
+	vp.Sequence()
+	return vp
+}
+
+func GetVoyages() []Voyage {
+	return DataVoyages
+}
+
+func GetPositions() []Position {
+	return DataPositions
 }

@@ -2,55 +2,48 @@ package types
 
 import (
 	"github.com/graphql-go/graphql"
-	"github.com/mikedonnici/graphql/data"
 )
 
-var Post = graphql.NewObject(graphql.ObjectConfig{
+var Position = graphql.NewObject(graphql.ObjectConfig{
 	Name:        "Position",
-	Description: "Blog post...",
+	Description: "A reported position of a vessel at a given time",
 	Fields: graphql.Fields{
 		"id": &graphql.Field{
+			Type: graphql.String,
+		},
+		"vesselId": &graphql.Field{
+			Type: graphql.String,
+		},
+		"ata": &graphql.Field{
+			Type: graphql.DateTime,
+		},
+		"sequence": &graphql.Field{
 			Type: graphql.Int,
 		},
-		"title": &graphql.Field{
-			Type: graphql.String,
+		"lat": &graphql.Field{
+			Type: graphql.Float,
 		},
-		"content": &graphql.Field{
-			Type: graphql.String,
-		},
-		"author": &graphql.Field{
-			Type: Author,
-			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-				// get the author id from the source of this data, which is data.Position.AuthorID
-				// p.Source returns an interface{} so have to assert the value first :)
-				authorID := p.Source.(data.Position).AuthorID
-				return data.GetAuthor(authorID), nil
-			},
-		},
-		"comments": &graphql.Field{
-			Type:        graphql.NewList(Comment),
-			Description: "Comments belonging to a post",
-			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-				postID := p.Source.(data.Position).ID
-				return data.GetComments(postID), nil
-			},
+		"lon": &graphql.Field{
+			Type: graphql.Float,
 		},
 	},
 })
 
-var PostInput = graphql.NewInputObject(graphql.InputObjectConfig{
-	Name:        "PostInput",
-	Description: "Add new post type",
+var PositionInput = graphql.NewInputObject(graphql.InputObjectConfig{
+	Name:        "PositionInput",
+	Description: "Position input type",
 	Fields: graphql.InputObjectConfigFieldMap{
-		"title": &graphql.InputObjectFieldConfig{
+		"vesselId": &graphql.InputObjectFieldConfig{
 			Type: &graphql.NonNull{OfType: graphql.String},
 		},
-		"content": &graphql.InputObjectFieldConfig{
-			Type: &graphql.NonNull{OfType: graphql.String},
+		"ata": &graphql.InputObjectFieldConfig{
+			Type: &graphql.NonNull{OfType: graphql.DateTime},
 		},
-		"authorId": &graphql.InputObjectFieldConfig{
-			Type: &graphql.NonNull{OfType: graphql.Int},
+		"lat": &graphql.InputObjectFieldConfig{
+			Type: &graphql.NonNull{OfType: graphql.Float},
+		},
+		"lon": &graphql.InputObjectFieldConfig{
+			Type: &graphql.NonNull{OfType: graphql.Float},
 		},
 	},
 })
-

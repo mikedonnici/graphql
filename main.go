@@ -16,23 +16,23 @@ func main() {
 			Name:        "RootQuery",
 			Description: "...",
 			Fields: graphql.Fields{
-				"posts":       queries.Posts,
-				"post":        queries.Post,
-				"authors":     queries.Authors,
-				"author":      queries.Author,
-				"authorPosts": queries.AuthorPosts,
+				"vessels":         queries.Vessels,
+				"vessel":          queries.Vessel,
+				"vesselPositions": queries.VesselPositions,
+				"voyages":         queries.Voyages,
+				//"voyage": queries.Voyage,
+				"positions": queries.Positions,
 			},
 		})
-
-	// example mutation
-	// https://gist.github.com/sogko/7debd336118e5e7c7f65
 
 	rootMutation := graphql.NewObject(
 		graphql.ObjectConfig{
 			Name:        "RootMutation",
 			Description: "...",
 			Fields: graphql.Fields{
-				"addPost": mutations.AddPost,
+				"addVessel":   mutations.AddVessel,
+				"addVoyage":   mutations.AddVoyage,
+				"addPosition": mutations.AddPosition,
 			},
 		})
 
